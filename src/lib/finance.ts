@@ -1,0 +1,44 @@
+import type { Tables } from "@/integrations/supabase/types";
+
+export type Tx = Tables<"financial_transactions">;
+export type TxWithMember = Tx & { members?: { id: string; full_name: string } | null };
+export type Goal = Tables<"financial_goals">;
+
+export const sum = (l: Tx[]) => l.reduce((s, t) => s + Number(t.amount), 0);
+export const incomes = (l: Tx[]) => l.filter((t) => t.kind === "entrada");
+export const expenses = (l: Tx[]) => l.filter((t) => t.kind === "saida");
+
+export function byCategory(l: Tx[]) {
+  const m: Record<string, number> = {};
+  l.forEach((t) => (m[t.category] = (m[t.category] ?? 0) + Number(t.amount)));
+  return Object.entries(m).map(([name, value]) => ({ name, value })).sort((a, b) => b.value - a.value);
+}
+
+export function inPeriod<T extends Tx>(l: T[], year: number, month?: number | null): T[] {
+  const p = month ? `${year}-${String(month).padStart(2, "0")}` : `${year}`;
+  return l.filter((t) => t.occurred_on.startsWith(p));
+}
+
+/** Goal progress: monthly goals count the current month; others the start..end range. */
+export function goalProgress(g: Goal, all: Tx[]) {
+  let raised: number;
+  if (g.manual_amount !== null && !g.category) raised = Number(g.manual_amount);
+  else {
+    let from = g.start_date ?? "0000-01-01";
+    let to = g.deadline ?? "9999-12-31";
+    if (g.recurrence === "mensal") {
+      const d = new Date();
+      const ym = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+      from = `${ym}-01`;
+      to = `${ym}-31`;
+    }
+    raised = sum(all.filter((t) => t.kind === "entrada" && (!g.category || t.category === g.category) && t.occurred_on >= from && t.occurred_on <= to));
+  }
+  const target = Number(g.target_amount);
+  return { raised, target, remaining: Math.max(0, target - raised), pct: Math.min(100, (raised / target) * 100) };
+}
+
+export const txRows = (l: TxWithMember[]) => [
+  ["Data", "Tipo", "Categoria", "Membro", "Descrição", "Responsável", "Método", "Observação", "Valor (R$)"],
+  ...l.map((t) => [t.occurred_on.split("-").reverse().join("/"), t.kind === "entrada" ? "Receita" : "Despesa", t.category, t.members?.full_name ?? "", t.description, t.responsible, t.payment_method, t.notes, Number(t.amount)]),
+];

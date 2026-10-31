@@ -1,0 +1,81 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { useAccess } from "@/hooks/use-access";
+import { brl } from "@/lib/church";
+import { siteMeta } from "@/lib/site-query";
+import { EventsCard, FinanceCards, PrayerCard, VolunteerCards } from "@/components/dashboard/DashboardCards";
+import { MyTickets } from "@/components/events/MyTickets";
+import { NextShiftCard } from "@/components/shifts/MyShifts";
+
+export const Route = createFileRoute("/_authenticated/painel/")({
+  head: () =>
+    siteMeta("Visão geral — Wingfy", "Área de membros e gestão do Wingfy."),
+  component: Overview,
+});
+
+function Overview() {
+  const { can, isLoading, data: access } = useAccess();
+  const members = useQuery({
+    queryKey: ["members-count"],
+    enabled: can("view_members"),
+    queryFn: async () =>
+      (await supabase.from("members").select("id", { count: "exact", head: true })).count ?? 0,
+  });
+  const fin = useQuery({
+    queryKey: ["fin-summary"],
+    enabled: can("view_finance"),
+    queryFn: async () => {
+      const { data } = await supabase.from("financial_transactions").select("kind, amount");
+      let inc = 0,
+        out = 0;
+      (data ?? []).forEach((t) =>
+        t.kind === "entrada" ? (inc += Number(t.amount)) : (out += Number(t.amount)),
+      );
+      return { inc, out };
+    },
+  });
+
+  if (isLoading) return null;
+  // "Painel do membro": sem nenhuma permissão de administração, só eventos e os ingressos da própria pessoa
+  const nothing =
+    !can("view_members") && !can("view_finance") && !can("view_prayer_requests") && !can("view_departments") && !can("manage_departments");
+
+  return (
+    <div>
+      <h1 className="text-3xl text-foreground">Visão geral</h1>
+      <NextShiftCard />
+      {nothing && (
+        <p className="mt-4 text-muted-foreground">
+          Bem-vindo à comunidade! Acesse seu cadastro e conheça a nossa comunidade.
+        </p>
+      )}
+      <div className="mt-6 grid gap-4 md:grid-cols-3">
+        {can("view_members") && (
+          <Link to="/painel/membros" className="rounded-2xl border bg-card p-6 transition-shadow hover:shadow-soft">
+            <p className="text-sm text-muted-foreground">Membros cadastrados</p>
+            <p className="mt-2 font-display text-4xl text-foreground">{members.data ?? "—"}</p>
+          </Link>
+        )}
+        <VolunteerCards />
+        {can("view_finance") && (
+          <>
+            <Link to="/painel/financeiro" className="rounded-2xl border bg-card p-6 transition-shadow hover:shadow-soft">
+              <p className="text-sm text-muted-foreground">Saldo</p>
+              <p className="mt-2 font-display text-4xl text-foreground">{fin.data ? brl(fin.data.inc - fin.data.out) : "—"}</p>
+            </Link>
+            <div className="rounded-2xl border bg-card p-6">
+              <p className="text-sm text-muted-foreground">Entradas / Saídas</p>
+              <p className="mt-2 text-lg text-success">{fin.data ? brl(fin.data.inc) : "—"}</p>
+              <p className="text-lg text-destructive">{fin.data ? brl(fin.data.out) : "—"}</p>
+            </div>
+          </>
+        )}
+        <FinanceCards />
+        <EventsCard />
+        <PrayerCard />
+      </div>
+      {access?.uid && <MyTickets uid={access.uid} />}
+    </div>
+  );
+}
