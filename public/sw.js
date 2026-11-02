@@ -1,4 +1,4 @@
-/* Wingfy — service worker das notificações push.
+/* Eccles — service worker das notificações push.
    Só cuida de mostrar avisos e abrir a página certa ao tocar; não guarda nada em cache. */
 
 self.addEventListener("install", () => self.skipWaiting());
@@ -11,7 +11,7 @@ self.addEventListener("push", (event) => {
   } catch (_e) {
     data = { body: event.data ? event.data.text() : "" };
   }
-  const title = data.title || "Wingfy";
+  const title = data.title || "Eccles";
   event.waitUntil(
     self.registration.showNotification(title, {
       body: data.body || "",

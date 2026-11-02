@@ -20,7 +20,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import type { Tables } from "@/integrations/supabase/types";
 
 export const Route = createFileRoute("/_authenticated/painel/departamentos")({
-  head: () => siteMeta("Departamentos — Wingfy", "Departamentos, voluntários, líderes e cargos do Wingfy."),
+  head: () => siteMeta("Departamentos — Eccles", "Departamentos, voluntários, líderes e cargos do Eccles."),
   component: DepartmentsPage,
 });
 

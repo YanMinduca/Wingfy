@@ -1,4 +1,4 @@
-# Wingfy
+# Eccles
 
 SaaS de administração de igrejas. Cada igreja cria o próprio espaço e mantém o sistema ativo com uma assinatura mensal ou anual.
 
@@ -7,7 +7,7 @@ Base do projeto: [Aava](https://github.com/YanMinduca/Aava) (TanStack Start + Re
 ## Estado atual
 
 - **Cadastro** em `/cadastro`: responsável, dados da igreja, plano (mensal/anual) e confirmação. **Somente visual**: nada é salvo e nenhuma cobrança é feita.
-- **Login fake** em `/auth`: qualquer e-mail e senha entram (já vem preenchido `demo@wingfy.app` / `demo1234`). A sessão fica no `localStorage`.
+- **Login fake** em `/auth`: qualquer e-mail e senha entram (já vem preenchido `demo@eccles.app` / `demo1234`). A sessão fica no `localStorage`.
 - **Landing page**: removida. A rota `/` redireciona para `/cadastro` até a landing ser criada.
 - **Painel** (`/painel/*`) liberado para teste, com acesso total (CEO) e dados de exemplo: membros, departamentos, eventos, financeiro, oração, permissões. Migrações (`drizzle/`) e funções (`supabase/`) vieram do Aava e ficam como base para o banco real.
 

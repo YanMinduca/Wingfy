@@ -12,7 +12,7 @@ import { fmtDateTime } from "@/lib/events";
 import { siteMeta } from "@/lib/site-query";
 
 export const Route = createFileRoute("/_authenticated/painel/eventos")({
-  head: () => siteMeta("Eventos — Wingfy", "Gerencie eventos, inscrições, pagamentos e presença."),
+  head: () => siteMeta("Eventos — Eccles", "Gerencie eventos, inscrições, pagamentos e presença."),
   component: EventsAdmin,
 });
 

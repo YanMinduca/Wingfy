@@ -24,7 +24,7 @@ import { siteMeta } from "@/lib/site-query";
 import type { Tables } from "@/integrations/supabase/types";
 
 export const Route = createFileRoute("/_authenticated/painel/evento/$id")({
-  head: () => siteMeta("Evento — Wingfy", "Gestão do evento."),
+  head: () => siteMeta("Evento — Eccles", "Gestão do evento."),
   component: EventAdmin,
 });
 

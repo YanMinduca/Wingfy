@@ -5,7 +5,7 @@ import { useAccess } from "@/hooks/use-access";
 export const Route = createFileRoute("/_authenticated/painel/oracao")({
   head: () =>
     siteMeta(
-      "Pedidos de oração — Área de membros Wingfy",
+      "Pedidos de oração — Área de membros Eccles",
       "Envie e acompanhe pedidos de oração da comunidade.",
     ),
   component: PanelPrayer,

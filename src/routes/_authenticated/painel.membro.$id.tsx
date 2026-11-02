@@ -23,7 +23,7 @@ import { useChurchRoles, useDepartments, useMemberDepartments } from "@/hooks/us
 
 export const Route = createFileRoute("/_authenticated/painel/membro/$id")({
   head: () =>
-    siteMeta("Perfil do membro — Wingfy", "Dados e histórico de dízimos do membro."),
+    siteMeta("Perfil do membro — Eccles", "Dados e histórico de dízimos do membro."),
   component: MemberProfile,
 });
 

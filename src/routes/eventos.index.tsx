@@ -5,7 +5,7 @@ import { EventCard, usePublicEvents } from "@/components/events/EventsList";
 import { siteMeta } from "@/lib/site-query";
 
 export const Route = createFileRoute("/eventos/")({
-  head: () => siteMeta("Eventos — Wingfy", "Veja os próximos eventos do Wingfy e faça sua inscrição."),
+  head: () => siteMeta("Eventos — Eccles", "Veja os próximos eventos do Eccles e faça sua inscrição."),
   errorComponent: PageError,
   notFoundComponent: PageError,
   component: EventsPage,

@@ -17,7 +17,7 @@ import { MEMBER_STATUS } from "@/lib/church";
 import { siteMeta } from '@/lib/site-query';
 
 export const Route = createFileRoute("/_authenticated/painel/meu-cadastro")({
-  head: () => siteMeta('Meu cadastro — Wingfy', 'Dados pessoais e eclesiásticos do membro.'),
+  head: () => siteMeta('Meu cadastro — Eccles', 'Dados pessoais e eclesiásticos do membro.'),
   validateSearch: (s: Record<string, unknown>) => ({ convite: typeof s["convite"] === "string" ? (s["convite"] as string) : undefined }),
   component: MyProfile,
 });

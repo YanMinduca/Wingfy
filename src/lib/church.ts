@@ -1,5 +1,5 @@
 export const CHURCH = {
-  name: "Wingfy",
+  name: "Eccles",
   address: "",
   city: "",
   mapsQuery: "",

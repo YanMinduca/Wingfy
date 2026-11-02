@@ -5,13 +5,14 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { EcclesLogo } from "@/components/brand/EcclesLogo";
 
 export const Route = createFileRoute("/convite/$code")({
   head: () => ({
     meta: [
-      { title: "Convite — Wingfy" },
-      { name: "description", content: "Você foi convidado para fazer parte do Wingfy." },
-      { property: "og:title", content: "Convite — Wingfy" },
+      { title: "Convite — Eccles" },
+      { name: "description", content: "Você foi convidado para fazer parte do Eccles." },
+      { property: "og:title", content: "Convite — Eccles" },
       { property: "og:description", content: "Complete seu cadastro de membro." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -67,7 +68,7 @@ function InvitePage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-primary-soft px-4">
       <div className="w-full max-w-sm rounded-3xl border bg-card p-8 shadow-soft">
-        <Link to="/" className="font-display text-xl text-foreground">Comunidade <span className="text-primary">Wingfy</span></Link>
+        <Link to="/" aria-label="Eccles"><EcclesLogo /></Link>
         {valid === false ? (
           <>
             <h1 className="mt-6 text-2xl text-foreground">Convite inválido</h1>

@@ -4,7 +4,7 @@ import { isIos, isStandalone } from "@/lib/pwa";
 /** Situação das notificações push neste aparelho. */
 export type PushState = "unsupported" | "needs-install" | "denied" | "off" | "on";
 
-const OPT_OUT_KEY = "wingfy-push-off";
+const OPT_OUT_KEY = "eccles-push-off";
 
 const inBrowser = () => typeof window !== "undefined" && typeof navigator !== "undefined";
 

@@ -14,7 +14,7 @@ export const contentFields = {
   whatsappUrl: ["Contato", "Link do WhatsApp", ""],
   instagramVideo: ["Início", "Link do vídeo/reel no Instagram", ""],
   heroEyebrow: ["Início", "Texto acima do título", "FÉ. VIDA. COMUNIDADE."],
-  heroTitle: ["Início", "Título principal", "Wingfy"],
+  heroTitle: ["Início", "Título principal", "Eccles"],
   heroSubtitle: ["Início", "Destaque principal", "Você faz parte."],
   heroText: [
     "Início",

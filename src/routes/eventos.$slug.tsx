@@ -11,7 +11,7 @@ import { asEventDetail, fmtDate, fmtLongDate, fmtTime, moneyBR } from "@/lib/eve
 import { siteMeta } from "@/lib/site-query";
 
 export const Route = createFileRoute("/eventos/$slug")({
-  head: () => siteMeta("Evento — Wingfy", "Detalhes e inscrição do evento."),
+  head: () => siteMeta("Evento — Eccles", "Detalhes e inscrição do evento."),
   errorComponent: PageError,
   notFoundComponent: PageError,
   component: EventPage,

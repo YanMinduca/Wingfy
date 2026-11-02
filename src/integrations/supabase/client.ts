@@ -36,7 +36,7 @@ function createSupabaseClient(): SupabaseClient<Database> {
   const SUPABASE_PUBLISHABLE_KEY = import.meta.env['VITE_SUPABASE_PUBLISHABLE_KEY'] || process.env['SUPABASE_PUBLISHABLE_KEY'];
 
   if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
-    // Wingfy: sem banco conectado o app roda em modo demonstração (dados de exemplo em memória, login fake).
+    // Eccles: sem banco conectado o app roda em modo demonstração (dados de exemplo em memória, login fake).
     return createDemoClient() as unknown as SupabaseClient<Database>;
   }
 

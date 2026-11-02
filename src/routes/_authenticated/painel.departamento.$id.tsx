@@ -20,7 +20,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export const Route = createFileRoute("/_authenticated/painel/departamento/$id")({
-  head: () => siteMeta("Departamento — Wingfy", "Voluntários, liderança e relatório do departamento."),
+  head: () => siteMeta("Departamento — Eccles", "Voluntários, liderança e relatório do departamento."),
   component: DepartmentDetail,
 });
 

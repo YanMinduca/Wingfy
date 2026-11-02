@@ -11,7 +11,7 @@ export type ResendStore = Pick<Storage, "getItem" | "setItem">;
 type Entry = { count: number; first: number; last: number };
 export type ResendStatus = { canResend: boolean; remaining: number; waitMs: number; reason: "ok" | "wait" | "limit" };
 
-const key = (email: string) => `wingfy:resend:${email.trim().toLowerCase()}`;
+const key = (email: string) => `eccles:resend:${email.trim().toLowerCase()}`;
 
 const memory = new Map<string, string>();
 const memoryStore: ResendStore = { getItem: (k) => memory.get(k) ?? null, setItem: (k, v) => void memory.set(k, v) };

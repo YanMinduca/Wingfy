@@ -11,7 +11,7 @@ import { fmtShiftLong, fmtShiftTime } from "@/lib/shifts";
 
 export const Route = createFileRoute("/_authenticated/painel/escalas")({
   validateSearch: (s: Record<string, unknown>): { dept?: string } => (typeof s["dept"] === "string" ? { dept: s["dept"] } : {}),
-  head: () => siteMeta("Escalas — Área de membros Wingfy", "Escalas dos departamentos de voluntários."),
+  head: () => siteMeta("Escalas — Área de membros Eccles", "Escalas dos departamentos de voluntários."),
   component: ShiftsPage,
 });
 

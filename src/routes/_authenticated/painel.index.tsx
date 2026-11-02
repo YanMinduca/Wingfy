@@ -10,7 +10,7 @@ import { NextShiftCard } from "@/components/shifts/MyShifts";
 
 export const Route = createFileRoute("/_authenticated/painel/")({
   head: () =>
-    siteMeta("Visão geral — Wingfy", "Área de membros e gestão do Wingfy."),
+    siteMeta("Visão geral — Eccles", "Área de membros e gestão do Eccles."),
   component: Overview,
 });
 

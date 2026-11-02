@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import { ConfirmButton } from "@/components/ConfirmDialog";
 
 export const Route = createFileRoute("/_authenticated/painel/notificacoes")({
-  head: () => siteMeta("Avisos por notificação — Área de membros Wingfy", "Envie avisos por notificação push para os membros."),
+  head: () => siteMeta("Avisos por notificação — Área de membros Eccles", "Envie avisos por notificação push para os membros."),
   component: PanelNotifications,
 });
 

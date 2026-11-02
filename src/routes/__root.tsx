@@ -64,14 +64,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Wingfy" },
-      { name: "description", content: "Wingfy — plataforma de administração para igrejas." },
+      { title: "Eccles" },
+      { name: "description", content: "Eccles — plataforma de administração para igrejas." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "theme-color", content: "#2f5bd8" },
       { name: "mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
-      { name: "apple-mobile-web-app-title", content: "Wingfy" },
+      { name: "apple-mobile-web-app-title", content: "Eccles" },
       { name: "apple-mobile-web-app-status-bar-style", content: "default" },
     ],
     links: [

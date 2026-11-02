@@ -73,7 +73,7 @@ export function PushToggle() {
             <li>
               Escolha <strong>Adicionar à Tela de Início</strong>.
             </li>
-            <li>Abra o Wingfy pelo ícone novo e volte a esta tela para ativar.</li>
+            <li>Abra o Eccles pelo ícone novo e volte a esta tela para ativar.</li>
           </ol>
         </div>
       )}
@@ -87,7 +87,7 @@ export function PushToggle() {
       {state === "off" && (
         <>
           <p className="mt-2 text-muted-foreground">
-            Receba avisos do Wingfy (novos eventos e recados da igreja) mesmo com o site fechado. Vale só para este aparelho; se quiser também em outro, ative lá.
+            Receba avisos do Eccles (novos eventos e recados da igreja) mesmo com o site fechado. Vale só para este aparelho; se quiser também em outro, ative lá.
           </p>
           <Button className="mt-4" disabled={busy} onClick={turnOn}>
             Ativar notificações
@@ -112,10 +112,10 @@ export function PushToggle() {
           <details className="mt-4 rounded-lg border bg-muted/30 p-3 text-muted-foreground">
             <summary className="cursor-pointer font-medium text-foreground">A notificação não chega com o app fechado?</summary>
             <div className="mt-2 space-y-2">
-              <p>Alguns celulares Android economizam bateria parando os apps em segundo plano. Libere o navegador (e o app do Wingfy, se instalado):</p>
+              <p>Alguns celulares Android economizam bateria parando os apps em segundo plano. Libere o navegador (e o app do Eccles, se instalado):</p>
               <ol className="list-decimal space-y-1 pl-5">
                 <li>
-                  Abra <strong>Configurações → Apps</strong> e toque em <strong>Chrome</strong> (e em <strong>Wingfy</strong>, se estiver instalado).
+                  Abra <strong>Configurações → Apps</strong> e toque em <strong>Chrome</strong> (e em <strong>Eccles</strong>, se estiver instalado).
                 </li>
                 <li>
                   Em <strong>Bateria</strong>, escolha <strong>Sem restrições</strong> (ou “Irrestrito”).

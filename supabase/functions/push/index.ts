@@ -128,7 +128,7 @@ Deno.serve(async (req) => {
       if (!audience?.type) return json({ error: "invalid_audience" }, 400);
       return json(await deliver(cfg, {
         audience, kind: "auto", tag: body.tag,
-        title: String(body.title ?? "").slice(0, 80) || "Wingfy",
+        title: String(body.title ?? "").slice(0, 80) || "Eccles",
         body: String(body.body ?? "").slice(0, 240),
         url: cleanUrl(body.url),
       }));
@@ -143,7 +143,7 @@ Deno.serve(async (req) => {
       const notice: Notice = {
         audience: { type: "user", id: user.id }, kind: "test", url: "/painel",
         title: delay > 0 ? "Teste com o app fechado" : "Notificações ativadas",
-        body: delay > 0 ? "Chegou! Os avisos do Wingfy funcionam mesmo com o app fechado." : "Tudo certo! Você vai receber os avisos do Wingfy neste aparelho.",
+        body: delay > 0 ? "Chegou! Os avisos do Eccles funcionam mesmo com o app fechado." : "Tudo certo! Você vai receber os avisos do Eccles neste aparelho.",
       };
       const bg = (globalThis as { EdgeRuntime?: { waitUntil(p: Promise<unknown>): void } }).EdgeRuntime;
       if (delay > 0 && bg) {

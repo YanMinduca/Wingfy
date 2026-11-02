@@ -2,9 +2,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Church, Check, Users, CalendarDays, Wallet } from "lucide-react";
 import { SignupWizard } from "@/components/signup/SignupWizard";
 import { siteMeta } from "@/lib/site-query";
+import { EcclesLogo } from "@/components/brand/EcclesLogo";
 
 export const Route = createFileRoute("/cadastro")({
-  head: () => siteMeta("Criar minha igreja — Wingfy", "Crie o espaço da sua igreja no Wingfy e administre membros, finanças, eventos e escalas."),
+  head: () => siteMeta("Criar minha igreja — Eccles", "Crie o espaço da sua igreja no Eccles e administre membros, finanças, eventos e escalas."),
   component: CadastroPage,
 });
 
@@ -19,7 +20,7 @@ function CadastroPage() {
     <div className="grid min-h-screen lg:grid-cols-[0.8fr_1.2fr]">
       <aside className="hidden flex-col justify-between bg-ink p-10 text-ink-foreground lg:flex">
         <Link to="/" className="font-display text-2xl font-extrabold">
-          Wingfy<span className="text-primary">.</span>
+          <EcclesLogo className="[&_*]:text-ink-foreground" />
         </Link>
         <div>
           <Church className="h-10 w-10 text-primary" aria-hidden />
@@ -41,11 +42,11 @@ function CadastroPage() {
       <main className="flex items-center justify-center bg-primary-soft px-4 py-10 lg:bg-background">
         <div className="w-full max-w-xl rounded-3xl border bg-card p-6 shadow-soft sm:p-8">
           <Link to="/" className="mb-6 block font-display text-xl font-extrabold text-foreground lg:hidden">
-            Wingfy<span className="text-primary">.</span>
+            <EcclesLogo className="[&_*]:text-ink-foreground" />
           </Link>
           <SignupWizard />
           <p className="mt-8 border-t pt-5 text-center text-sm text-muted-foreground">
-            Já tem uma igreja no Wingfy?{" "}
+            Já tem uma igreja no Eccles?{" "}
             <Link to="/auth" className="font-semibold text-primary hover:underline">
               Entrar
             </Link>

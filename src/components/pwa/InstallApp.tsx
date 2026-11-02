@@ -4,7 +4,7 @@ import { Download, Share, Smartphone, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { promptInstall, useInstallState } from "@/lib/pwa";
 
-const DISMISS_KEY = "wingfy-install-dismissed";
+const DISMISS_KEY = "eccles-install-dismissed";
 const read = (k: string) => {
   try {
     return localStorage.getItem(k);
@@ -22,20 +22,20 @@ export function InstallCard() {
     setBusy(true);
     const r = await promptInstall().catch(() => "unavailable" as const);
     setBusy(false);
-    if (r === "accepted") toast.success("App instalado! Procure o ícone do Wingfy na tela inicial.");
+    if (r === "accepted") toast.success("App instalado! Procure o ícone do Eccles na tela inicial.");
   }
 
   return (
     <section className="rounded-2xl border bg-card p-5 text-sm" aria-labelledby="install-title">
       <h2 id="install-title" className="flex items-center gap-2 font-display text-lg text-foreground">
-        <Smartphone className="h-5 w-5 text-primary" aria-hidden /> Instalar o app do Wingfy
+        <Smartphone className="h-5 w-5 text-primary" aria-hidden /> Instalar o app do Eccles
       </h2>
 
       {state === "installed" && <p className="mt-2 text-muted-foreground">Você já está usando o app. Ele abre direto na área de membros.</p>}
 
       {state !== "installed" && (
         <p className="mt-2 text-muted-foreground">
-          Vira um ícone no celular ou no computador e abre direto na área de membros, sem passar pela página inicial. As notificações também aparecem com o ícone do Wingfy, em vez do ícone do navegador.
+          Vira um ícone no celular ou no computador e abre direto na área de membros, sem passar pela página inicial. As notificações também aparecem com o ícone do Eccles, em vez do ícone do navegador.
         </p>
       )}
 
@@ -53,7 +53,7 @@ export function InstallCard() {
           <li>
             Escolha <strong>Adicionar à Tela de Início</strong> e confirme.
           </li>
-          <li>Abra o Wingfy pelo ícone novo.</li>
+          <li>Abra o Eccles pelo ícone novo.</li>
         </ol>
       )}
 
@@ -88,7 +88,7 @@ export function InstallPrompt() {
       <Smartphone className="h-5 w-5 shrink-0 text-primary" aria-hidden />
       <p className="min-w-0 flex-1 text-foreground">
         {state === "available"
-          ? "Instale o app do Wingfy: abre direto na área de membros e as notificações chegam com o ícone da igreja."
+          ? "Instale o app do Eccles: abre direto na área de membros e as notificações chegam com o ícone da igreja."
           : "Instale o app: toque em Compartilhar e depois em “Adicionar à Tela de Início”."}
       </p>
       {state === "available" && (

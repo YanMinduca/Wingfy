@@ -3,7 +3,7 @@
  * Cliente "Supabase" de demonstração: roda inteiro em memória, sem rede e sem banco.
  * É usado automaticamente por `client.ts` quando não há VITE_SUPABASE_URL / VITE_SUPABASE_PUBLISHABLE_KEY.
  *
- * - Login fake: qualquer e-mail e senha entram (sugestão: demo@wingfy.app / demo1234).
+ * - Login fake: qualquer e-mail e senha entram (sugestão: demo@eccles.app / demo1234).
  * - Os dados de exemplo nascem a cada carregamento da página; o que for criado/editado/apagado vale até recarregar.
  * - A sessão fake fica no localStorage para o F5 não deslogar.
  *
@@ -13,10 +13,10 @@
 type Row = any;
 type Result = { data: any; error: null | { message: string }; count?: number | null };
 
-export const DEMO_EMAIL = "demo@wingfy.app";
+export const DEMO_EMAIL = "demo@eccles.app";
 export const DEMO_PASSWORD = "demo1234";
 const DEMO_USER_ID = "00000000-0000-4000-8000-000000000001";
-const SESSION_KEY = "wingfy:demo-session";
+const SESSION_KEY = "eccles:demo-session";
 
 // ───────────────────────── dados de exemplo ─────────────────────────
 

@@ -26,10 +26,11 @@ import { forgetPushDevice, syncPush } from "@/lib/push";
 import { PushPrompt } from "@/components/push/PushPrompt";
 import { InstallPrompt } from "@/components/pwa/InstallApp";
 import { hasBackend } from "@/lib/backend";
+import { EcclesLogo } from "@/components/brand/EcclesLogo";
 
 export const Route = createFileRoute("/_authenticated/painel")({
   head: () => ({
-    meta: [{ title: "Painel — Wingfy" }, { name: "robots", content: "noindex" }],
+    meta: [{ title: "Painel — Eccles" }, { name: "robots", content: "noindex" }],
   }),
   component: PanelLayout,
 });
@@ -100,7 +101,7 @@ function PanelLayout() {
       <aside className="print:hidden border-b bg-sidebar md:sticky md:top-0 md:h-screen md:w-64 md:border-b-0 md:border-r">
         <div className="flex h-full flex-col p-5">
           <Link to="/painel" className="font-display text-lg font-extrabold text-foreground">
-            Wingfy<span className="text-primary">.</span>
+            <EcclesLogo />
           </Link>
           <nav className="mt-6 flex gap-1 overflow-x-auto md:flex-col">
             {items

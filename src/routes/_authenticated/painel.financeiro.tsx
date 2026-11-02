@@ -25,7 +25,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export const Route = createFileRoute("/_authenticated/painel/financeiro")({
-  head: () => siteMeta('Financeiro — Wingfy', 'Receitas, despesas e metas financeiras da igreja.'),
+  head: () => siteMeta('Financeiro — Eccles', 'Receitas, despesas e metas financeiras da igreja.'),
   component: FinancePage,
 });
 

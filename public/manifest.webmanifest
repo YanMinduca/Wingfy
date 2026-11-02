@@ -1,8 +1,8 @@
 {
   "id": "/painel",
-  "name": "Wingfy",
-  "short_name": "Wingfy",
-  "description": "Wingfy — plataforma de administração para igrejas.",
+  "name": "Eccles",
+  "short_name": "Eccles",
+  "description": "Eccles — plataforma de administração para igrejas.",
   "start_url": "/painel",
   "scope": "/",
   "display": "standalone",

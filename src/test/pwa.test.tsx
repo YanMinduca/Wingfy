@@ -120,10 +120,10 @@ describe("cartão de instalar", () => {
       installable();
     });
     rerender(<InstallPrompt />);
-    await screen.findByText(/Instale o app do Wingfy/);
+    await screen.findByText(/Instale o app do Eccles/);
     fireEvent.click(screen.getByLabelText("Agora não"));
-    await waitFor(() => expect(screen.queryByText(/Instale o app do Wingfy/)).toBeNull());
-    expect(localStorage.getItem("wingfy-install-dismissed")).toBe("1");
+    await waitFor(() => expect(screen.queryByText(/Instale o app do Eccles/)).toBeNull());
+    expect(localStorage.getItem("eccles-install-dismissed")).toBe("1");
   });
 });
 

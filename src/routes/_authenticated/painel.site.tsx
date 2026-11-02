@@ -19,7 +19,7 @@ import { removeSiteImages, uploadSiteImage } from "@/lib/site-images";
 export const Route = createFileRoute("/_authenticated/painel/site")({
   head: () =>
     siteMeta(
-      "Editar site — Wingfy",
+      "Editar site — Eccles",
       "Textos, fotos, horários e formas de contribuição da igreja.",
     ),
   component: SiteEditor,

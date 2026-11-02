@@ -76,7 +76,7 @@ describe("service worker (public/sw.js)", () => {
     const shown: { title: string; opts: Record<string, unknown> }[] = [];
     const opened: string[] = [];
     const self = {
-      location: { origin: "https://wingfy.example" },
+      location: { origin: "https://eccles.example" },
       skipWaiting: vi.fn(),
       clients: {
         claim: vi.fn(),
@@ -108,12 +108,12 @@ describe("service worker (public/sw.js)", () => {
     const e = waitable();
     w.listeners["push"]!({ ...e, data: null });
     await e.done();
-    expect(w.shown[0]!.title).toBe("Wingfy");
+    expect(w.shown[0]!.title).toBe("Eccles");
   });
 
   it("ao tocar: abre a página do aviso; link externo é trocado pelo painel", async () => {
     const w = loadWorker();
-    for (const [url, esperado] of [["/eventos/culto", "https://wingfy.example/eventos/culto"], ["https://malvado.example/x", "https://wingfy.example/painel"]] as const) {
+    for (const [url, esperado] of [["/eventos/culto", "https://eccles.example/eventos/culto"], ["https://malvado.example/x", "https://eccles.example/painel"]] as const) {
       const e = waitable();
       w.listeners["notificationclick"]!({ ...e, notification: { close: vi.fn(), data: { url } } });
       await e.done();
@@ -122,13 +122,13 @@ describe("service worker (public/sw.js)", () => {
   });
 
   it("ao tocar com o site já aberto: reaproveita a janela em vez de abrir outra", async () => {
-    const win = { url: "https://wingfy.example/painel", focus: vi.fn(), navigate: vi.fn() };
+    const win = { url: "https://eccles.example/painel", focus: vi.fn(), navigate: vi.fn() };
     const w = loadWorker([win]);
     const e = waitable();
     w.listeners["notificationclick"]!({ ...e, notification: { close: vi.fn(), data: { url: "/painel/oracao" } } });
     await e.done();
     expect(win.focus).toHaveBeenCalled();
-    expect(win.navigate).toHaveBeenCalledWith("https://wingfy.example/painel/oracao");
+    expect(win.navigate).toHaveBeenCalledWith("https://eccles.example/painel/oracao");
     expect(w.opened).toHaveLength(0);
   });
 });

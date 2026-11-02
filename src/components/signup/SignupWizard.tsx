@@ -129,12 +129,12 @@ export function SignupWizard() {
         <CheckCircle2 className="mx-auto h-14 w-14 text-success" aria-hidden />
         <h1 className="mt-5 text-2xl text-foreground">Igreja criada!</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          {church.churchName} já tem um espaço no Wingfy. Enviaremos o acesso para {owner.email}.
+          {church.churchName} já tem um espaço no Eccles. Enviaremos o acesso para {owner.email}.
         </p>
         <dl className="mx-auto mt-6 max-w-sm space-y-2 rounded-2xl border bg-muted/40 p-4 text-left text-sm">
           <div className="flex justify-between gap-4">
             <dt className="text-muted-foreground">Endereço</dt>
-            <dd className="font-medium">wingfy.app/{church.slug}</dd>
+            <dd className="font-medium">eccles.app/{church.slug}</dd>
           </div>
           <div className="flex justify-between gap-4">
             <dt className="text-muted-foreground">Plano</dt>
@@ -211,7 +211,7 @@ export function SignupWizard() {
               <h1 id="step-church" className="text-2xl text-foreground">
                 Dados da igreja
               </h1>
-              <p className="mt-1 text-sm text-muted-foreground">Essas informações criam o espaço da sua igreja no Wingfy.</p>
+              <p className="mt-1 text-sm text-muted-foreground">Essas informações criam o espaço da sua igreja no Eccles.</p>
             </div>
             <Field id="churchName" label="Nome da igreja" error={churchErrors.churchName}>
               <Input
@@ -226,7 +226,7 @@ export function SignupWizard() {
             </Field>
             <Field id="slug" label="Endereço da igreja" error={churchErrors.slug} hint="É assim que seus membros vão acessar o sistema.">
               <div className="flex items-center rounded-md border bg-background focus-within:ring-2 focus-within:ring-ring">
-                <span className="select-none pl-3 text-sm text-muted-foreground">wingfy.app/</span>
+                <span className="select-none pl-3 text-sm text-muted-foreground">eccles.app/</span>
                 <Input
                   id="slug"
                   className="border-0 pl-0 shadow-none focus-visible:ring-0"
@@ -379,7 +379,7 @@ export function SignupWizard() {
                 ["E-mail", owner.email],
                 ["Telefone", owner.phone],
                 ["Igreja", church.churchName],
-                ["Endereço", `wingfy.app/${church.slug}`],
+                ["Endereço", `eccles.app/${church.slug}`],
                 ["Denominação", church.denomination],
                 ["Cidade", `${church.city} - ${church.state}`],
               ].map(([k, v]) => (
@@ -404,7 +404,7 @@ export function SignupWizard() {
               <div className="flex items-start gap-3">
                 <Checkbox id="terms" checked={accepted} onCheckedChange={(v) => { setAccepted(v === true); setTermsError(false); }} />
                 <Label htmlFor="terms" className="text-sm font-normal leading-snug">
-                  Li e aceito os Termos de Uso e a Política de Privacidade do Wingfy.
+                  Li e aceito os Termos de Uso e a Política de Privacidade do Eccles.
                 </Label>
               </div>
               {termsError && (

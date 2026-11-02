@@ -24,7 +24,7 @@ import { memberSaveError, saveMemberDepartmentLinks } from "@/lib/departments";
 import { useChurchRoles, useDepartments, useMemberDepartments } from "@/hooks/use-departments";
 
 export const Route = createFileRoute("/_authenticated/painel/membros")({
-  head: () => siteMeta("Membros — Wingfy", "Cadastros, aprovação e convites do Wingfy."),
+  head: () => siteMeta("Membros — Eccles", "Cadastros, aprovação e convites do Eccles."),
   component: MembersPage,
 });
 

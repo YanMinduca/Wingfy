@@ -7,12 +7,13 @@ import { Label } from "@/components/ui/label";
 import { hasBackend } from "@/lib/backend";
 import { supabase } from "@/integrations/supabase/client";
 import { DEMO_EMAIL, DEMO_PASSWORD } from "@/integrations/supabase/demo-client";
+import { EcclesLogo } from "@/components/brand/EcclesLogo";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Entrar — Wingfy" },
-      { name: "description", content: "Acesse o painel da sua igreja no Wingfy." },
+      { title: "Entrar — Eccles" },
+      { name: "description", content: "Acesse o painel da sua igreja no Eccles." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -47,7 +48,7 @@ function AuthPage() {
     <div className="flex min-h-screen items-center justify-center bg-primary-soft px-4">
       <div className="w-full max-w-sm rounded-3xl border bg-card p-8 shadow-soft">
         <Link to="/" className="font-display text-xl font-extrabold text-foreground">
-          Wingfy<span className="text-primary">.</span>
+          <EcclesLogo />
         </Link>
         <h1 className="mt-6 text-2xl text-foreground">Entrar</h1>
         {!hasBackend && (

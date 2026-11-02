@@ -5,7 +5,7 @@ import { churchSchema, formatPhone, ownerSchema, slugify, validate } from "@/lib
 describe("cadastro: utilitários", () => {
   it("gera o endereço da igreja sem acentos nem símbolos", () => {
     expect(slugify("Igreja Batista Esperança & Vida!")).toBe("igreja-batista-esperanca-vida");
-    expect(slugify("  --Comunidade Wingfy--  ")).toBe("comunidade-wingfy");
+    expect(slugify("  --Comunidade Eccles--  ")).toBe("comunidade-eccles");
   });
 
   it("formata telefone com DDD", () => {

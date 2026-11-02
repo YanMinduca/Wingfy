@@ -13,7 +13,7 @@ import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export const Route = createFileRoute("/_authenticated/painel/permissoes")({
-  head: () => siteMeta("Usuários e permissões — Wingfy", "Gerencie os cargos e acessos do Wingfy."),
+  head: () => siteMeta("Usuários e permissões — Eccles", "Gerencie os cargos e acessos do Eccles."),
   component: PermissionsPage,
 });
 

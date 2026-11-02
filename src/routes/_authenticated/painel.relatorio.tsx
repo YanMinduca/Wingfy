@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 type Tipo = "mensal" | "anual" | "receitas" | "despesas" | "completo";
 
 export const Route = createFileRoute("/_authenticated/painel/relatorio")({
-  head: () => siteMeta('Relatórios financeiros — Wingfy', 'Prestação de contas e relatórios financeiros da comunidade.'),
+  head: () => siteMeta('Relatórios financeiros — Eccles', 'Prestação de contas e relatórios financeiros da comunidade.'),
   validateSearch: (s: Record<string, unknown>) => ({
     tipo: (["mensal", "anual", "receitas", "despesas", "completo"].includes(String(s["tipo"])) ? s["tipo"] : "mensal") as Tipo,
     ano: Number(s["ano"]) || new Date().getFullYear(),

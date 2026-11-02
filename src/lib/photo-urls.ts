@@ -14,7 +14,7 @@ const TTL_SECONDS = 12 * 60 * 60; // validade da URL assinada
 const RENEW_BEFORE_MS = 60 * 60 * 1000; // renova 1 h antes de vencer
 const BATCH_DELAY_MS = 15; // espera um instante para juntar os avatares da mesma tela
 const BATCH_SIZE = 100;
-const STORE_KEY = "wingfy:photo-urls:v1";
+const STORE_KEY = "eccles:photo-urls:v1";
 
 type Entry = { url: string; exp: number };
 

@@ -4,7 +4,7 @@ import { Bell, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { enablePush, getPushState, pushErrorMessage, pushOptedOut, sendTestPush } from "@/lib/push";
 
-const DISMISS_KEY = "wingfy-push-dismissed";
+const DISMISS_KEY = "eccles-push-dismissed";
 const read = (k: string) => {
   try {
     return localStorage.getItem(k);
@@ -51,7 +51,7 @@ export function PushPrompt() {
   return (
     <div role="region" aria-label="Ativar notificações" className="mb-6 flex flex-wrap items-center gap-3 rounded-xl border bg-primary-soft p-4 text-sm">
       <Bell className="h-5 w-5 shrink-0 text-primary" aria-hidden />
-      <p className="min-w-0 flex-1 text-foreground">Quer receber os avisos do Wingfy neste aparelho, mesmo com o site fechado?</p>
+      <p className="min-w-0 flex-1 text-foreground">Quer receber os avisos do Eccles neste aparelho, mesmo com o site fechado?</p>
       <Button size="sm" disabled={busy} onClick={turnOn}>
         Ativar
       </Button>
