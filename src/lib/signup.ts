@@ -79,3 +79,42 @@ export function validate<T>(schema: z.ZodType<T>, data: unknown): FieldErrors<T>
   }
   return errors as FieldErrors<T>;
 }
+
+/**
+ * Dados que vão em `supabase.auth.signUp({ options: { data } })`. O gatilho `handle_new_user` do banco lê estes campos
+ * e cria perfil, igreja e assinatura junto com a conta (e valida tudo de novo no servidor).
+ */
+export function signupMetadata(owner: OwnerData, church: ChurchData, planId: string, billing: "mensal" | "anual") {
+  return {
+    full_name: owner.fullName.trim(),
+    phone: owner.phone,
+    church_name: church.churchName.trim(),
+    church_slug: church.slug,
+    denomination: church.denomination,
+    city: church.city.trim(),
+    state: church.state,
+    size: church.size,
+    plan: planId,
+    billing,
+  };
+}
+
+/** Traduz os erros do Supabase Auth para mensagens que a pessoa entende. */
+export function signupErrorMessage(error: { message?: string; code?: string; status?: number }): string {
+  const code = error.code ?? "";
+  const msg = (error.message ?? "").toLowerCase();
+  if (code === "user_already_exists" || msg.includes("already registered") || msg.includes("already been registered")) {
+    return "Já existe uma conta com este e-mail. Use “Entrar” ou escolha outro e-mail.";
+  }
+  if (code === "weak_password" || msg.includes("password")) {
+    return "Esta senha foi recusada por ser fraca. Use pelo menos 8 caracteres, misturando letras e números.";
+  }
+  if (code === "over_email_send_rate_limit" || error.status === 429 || msg.includes("rate limit")) {
+    return "Muitas tentativas em pouco tempo. Aguarde alguns minutos e tente de novo.";
+  }
+  if (code === "email_address_invalid" || msg.includes("invalid email") || msg.includes("email address") && msg.includes("invalid")) {
+    return "Este e-mail não foi aceito. Confira se está escrito corretamente.";
+  }
+  if (code === "signup_disabled") return "Os cadastros estão temporariamente desativados.";
+  return "Não foi possível criar a conta agora. Tente novamente em instantes.";
+}

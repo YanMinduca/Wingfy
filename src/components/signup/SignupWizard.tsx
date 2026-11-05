@@ -6,7 +6,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { supabase } from "@/integrations/supabase/client";
+import { hasBackend } from "@/lib/backend";
 import { brl } from "@/lib/church";
+import { isChurchSlugAvailable } from "@/lib/platform";
 import { PLANS, getPlan, priceOf, yearlyPerMonth, yearlySavings, type Billing } from "@/lib/plans";
 import {
   DENOMINATIONS,
@@ -15,6 +18,8 @@ import {
   churchSchema,
   formatPhone,
   ownerSchema,
+  signupErrorMessage,
+  signupMetadata,
   slugify,
   validate,
   type ChurchData,
@@ -79,6 +84,9 @@ export function SignupWizard() {
   const [termsError, setTermsError] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
+  const [needsEmailConfirmation, setNeedsEmailConfirmation] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [checking, setChecking] = useState(false);
 
   const plan = getPlan(planId) ?? PLANS[0]!;
 
@@ -92,7 +100,7 @@ export function SignupWizard() {
     setChurchErrors((e) => ({ ...e, [key]: undefined }));
   }
 
-  function next() {
+  async function next() {
     if (step === 0) {
       const errors = validate(ownerSchema, owner);
       setOwnerErrors(errors);
@@ -102,6 +110,20 @@ export function SignupWizard() {
       const errors = validate(churchSchema, church);
       setChurchErrors(errors);
       if (Object.keys(errors).length) return;
+      if (hasBackend) {
+        // O endereço da igreja é único: avisa agora, antes de a pessoa escolher o plano.
+        setChecking(true);
+        try {
+          if (!(await isChurchSlugAvailable(church.slug))) {
+            setChurchErrors({ slug: "Este endereço já está em uso ou é reservado. Escolha outro." });
+            return;
+          }
+        } catch {
+          // Se a checagem falhar, o banco ainda resolve o conflito sozinho na hora de criar.
+        } finally {
+          setChecking(false);
+        }
+      }
     }
     setStep((s) => Math.min(s + 1, STEPS.length - 1));
   }
@@ -110,17 +132,45 @@ export function SignupWizard() {
     setStep((s) => Math.max(s - 1, 0));
   }
 
-  function finish() {
+  async function finish() {
     if (!accepted) {
       setTermsError(true);
       return;
     }
+    setSubmitError(null);
     setSubmitting(true);
-    // Visual apenas: nada é enviado nem salvo. Aqui entrará a criação da conta, da igreja e da assinatura.
-    window.setTimeout(() => {
-      setSubmitting(false);
+
+    if (!hasBackend) {
+      // Modo demonstração (sem Supabase configurado): nada é enviado nem salvo.
+      window.setTimeout(() => {
+        setSubmitting(false);
+        setDone(true);
+      }, 900);
+      return;
+    }
+
+    try {
+      // Um único passo cria tudo: o gatilho do banco lê estes dados e grava conta, perfil, igreja e assinatura.
+      const { data, error } = await supabase.auth.signUp({
+        email: owner.email.trim().toLowerCase(),
+        password: owner.password,
+        options: {
+          data: signupMetadata(owner, church, planId, billing),
+          emailRedirectTo: `${window.location.origin}/auth`,
+        },
+      });
+      if (error) throw error;
+      // Com a confirmação de e-mail ligada, um e-mail já cadastrado volta sem erro e sem identidades.
+      if (data.user && data.user.identities?.length === 0) {
+        throw { code: "user_already_exists", message: "User already registered" };
+      }
+      setNeedsEmailConfirmation(!data.session);
       setDone(true);
-    }, 900);
+    } catch (err) {
+      setSubmitError(signupErrorMessage(err as { message?: string; code?: string; status?: number }));
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (done) {
@@ -129,7 +179,12 @@ export function SignupWizard() {
         <CheckCircle2 className="mx-auto h-14 w-14 text-success" aria-hidden />
         <h1 className="mt-5 text-2xl text-foreground">Igreja criada!</h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          {church.churchName} já tem um espaço no Eccles. Enviaremos o acesso para {owner.email}.
+          {church.churchName} já tem um espaço no Eccles.{" "}
+          {!hasBackend
+            ? `Enviaremos o acesso para ${owner.email}.`
+            : needsEmailConfirmation
+              ? `Enviamos um link de confirmação para ${owner.email}. Confirme o e-mail para entrar.`
+              : "Sua conta já está pronta para entrar."}
         </p>
         <dl className="mx-auto mt-6 max-w-sm space-y-2 rounded-2xl border bg-muted/40 p-4 text-left text-sm">
           <div className="flex justify-between gap-4">
@@ -144,7 +199,9 @@ export function SignupWizard() {
           </div>
         </dl>
         <p className="mx-auto mt-4 max-w-sm text-xs text-muted-foreground">
-          Esta é uma versão de demonstração: nenhum dado foi salvo e nenhuma cobrança foi feita.
+          {hasBackend
+            ? "A cobrança da assinatura ainda não está ativa: seu plano fica registrado como pendente."
+            : "Esta é uma versão de demonstração: nenhum dado foi salvo e nenhuma cobrança foi feita."}
         </p>
         <Button asChild className="mt-6">
           <Link to="/auth">
@@ -413,7 +470,12 @@ export function SignupWizard() {
                 </p>
               )}
             </div>
-            <p className="text-xs text-muted-foreground">Versão de demonstração: nenhum dado é salvo e nenhuma cobrança é feita.</p>
+            {!hasBackend && <p className="text-xs text-muted-foreground">Versão de demonstração: nenhum dado é salvo e nenhuma cobrança é feita.</p>}
+            {submitError && (
+              <p role="alert" className="rounded-xl border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">
+                {submitError}
+              </p>
+            )}
           </section>
         )}
       </div>
@@ -428,12 +490,13 @@ export function SignupWizard() {
           <span />
         )}
         {step < STEPS.length - 1 ? (
-          <Button type="button" onClick={next}>
+          <Button type="button" onClick={() => void next()} disabled={checking}>
+            {checking ? <Loader2 className="animate-spin" /> : null}
             Continuar
             <ArrowRight />
           </Button>
         ) : (
-          <Button type="button" onClick={finish} disabled={submitting}>
+          <Button type="button" onClick={() => void finish()} disabled={submitting}>
             {submitting ? (
               <>
                 <Loader2 className="animate-spin" />

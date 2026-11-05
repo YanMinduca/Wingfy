@@ -520,6 +520,21 @@ function eventAdminStats(eventId: string) {
   };
 }
 
+const DEMO_CHURCHES = [
+  { id: "c-1", name: "Igreja Esperança", slug: "igreja-esperanca", denomination: "Batista", city: "Jacareí", state: "SP", size_range: "101 a 300", owner_name: "Maria Silva", owner_email: "maria@exemplo.com", owner_phone: "(12) 98888-0000", plan: "crescimento", billing: "mensal", status: "ativa", created_at: new Date(Date.now() - 864e5 * 3).toISOString() },
+  { id: "c-2", name: "Comunidade Vida Nova", slug: "vida-nova", denomination: "Comunidade / Independente", city: "São José dos Campos", state: "SP", size_range: "51 a 100", owner_name: "João Pereira", owner_email: "joao@exemplo.com", owner_phone: "(12) 97777-0000", plan: "essencial", billing: "anual", status: "pendente", created_at: new Date(Date.now() - 864e5).toISOString() },
+];
+
+function demoPlatformStats() {
+  const day = (offset: number) => new Date(Date.now() - 864e5 * offset).toISOString().slice(0, 10);
+  return {
+    total_users: 2, total_churches: 2, users_without_church: 0,
+    new_users_7d: 2, new_users_30d: 2, new_churches_7d: 2, new_churches_30d: 2,
+    by_status: { ativa: 1, pendente: 1 }, by_plan: { crescimento: 1, essencial: 1 }, by_billing: { mensal: 1, anual: 1 }, by_state: { SP: 2 },
+    signups_by_day: Array.from({ length: 14 }, (_, i) => ({ day: day(13 - i), users: i === 10 || i === 12 ? 1 : 0, churches: i === 10 || i === 12 ? 1 : 0 })),
+  };
+}
+
 function rpc(name: string, args: Row = {}): Result {
   switch (name) {
     case "department_overview": return ok(departmentOverview());
@@ -531,6 +546,9 @@ function rpc(name: string, args: Row = {}): Result {
       })));
     case "dashboard_volunteer_stats":
       return ok({ departments: table("departments").length, volunteers: new Set(table("department_members").map((m) => m["member_id"])).size });
+    case "church_slug_available": return ok(true);
+    case "platform_stats": return ok(demoPlatformStats());
+    case "platform_churches": return ok(DEMO_CHURCHES);
     case "public_events": return ok(publicEvents());
     case "event_admin_stats": return ok(eventAdminStats(args["_event"]));
     case "shift_departments":
